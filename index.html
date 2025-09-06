@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TuneHub</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Background Doodles -->
+  <div class="background">
+    <img src="https://cdn-icons-png.flaticon.com/512/727/727245.png" class="doodle doodle1">
+    <img src="https://cdn-icons-png.flaticon.com/512/2997/2997071.png" class="doodle doodle2">
+    <img src="https://cdn-icons-png.flaticon.com/512/727/727218.png" class="doodle doodle3">
+    <img src="https://cdn-icons-png.flaticon.com/512/727/727240.png" class="doodle doodle4">
+  </div>
+
+  <!-- Navbar -->
+  <nav class="navbar">
+    <div class="logo">🎵 TuneHub</div>
+    <ul class="nav-links">
+      <li><a href="#">Profile</a></li>
+      <li><a href="#">Login</a></li>
+      <li><a href="#">Sign Up</a></li>
+      <li><a href="#">Support</a></li>
+      <li><a href="#">Premium</a></li>
+      <li><a href="#">Downloads</a></li>
+    </ul>
+  </nav>
+
+  <div class="main-wrapper">
+    <div class="container">
+      <h1>Welcome to TuneHub</h1>
+      <h2>Your <span>Music Journey</span> Starts Here</h2>
+
+      <!-- Search -->
+      <div class="search-bar">
+        <input type="text" placeholder="Search songs, artists...">
+        <button>Search</button>
+      </div>
+
+      <!-- Play Button -->
+      <div class="play-btn">▶ Play Now</div>
+
+      <!-- Albums -->
+      <div class="albums">
+        <div>
+          <h3>Album 1</h3>
+          <img src="https://images.unsplash.com/photo-1511379938547-c1f69419868d?w=400" alt="Album 1">
+        </div>
+        <div>
+          <h3>Album 2</h3>
+          <img src="https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=400" alt="Album 2">
+        </div>
+        <div>
+          <h3>Album 3</h3>
+          <img src="https://images.unsplash.com/photo-1507874457470-272b3c8d8ee2?w=400" alt="Album 3">
+        </div>
+      </div>
+
+      <!-- Fancy Upload Section -->
+      <div class="fancy-upload">
+        <input type="file" accept="audio/*">
+        <p>Upload your downloaded music here 🎵</p>
+      </div>
+
+      <!-- Lyrics Section -->
+      <div class="lyrics">
+        <h3>Sample Lyrics: "Shape of You"</h3>
+        <p>The club isn't the best place to find a lover<br>
+           So the bar is where I go<br>
+           Me and my friends at the table doing shots<br>
+           Drinking fast and then we talk slow…</p>
+      </div>
+
+      <!-- Features Section -->
+      <div class="features">
+        <h3>Features of TuneHub</h3>
+        <ul>
+          <li>Play your downloaded music offline</li>
+          <li>View lyrics in real-time</li>
+          <li>Create playlists and manage songs</li>
+          <li>Upload and organize your music library</li>
+          <li>Top charts and recommended songs</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Music Player -->
+    <div class="player" id="player">
+      <!-- Left -->
+      <div class="player-left">
+        <img src="https://images.unsplash.com/photo-1516661789064-b636c5f21e24?w=200" alt="Current Song">
+        <div class="song-info">
+          <h4>Current Song</h4>
+          <p>Artist Name</p>
+        </div>
+      </div>
+
+      <!-- Center -->
+      <div class="player-center">
+        <div class="controls">
+          <button>⏮</button>
+          <button class="play">▶</button>
+          <button>⏭</button>
+        </div>
+        <div class="progress">
+          <span>1:32</span>
+          <input type="range" min="0" max="100" value="50">
+          <span>3:45</span>
+        </div>
+      </div>
+
+      <!-- Right -->
+      <div class="player-right">
+        <img src="https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f?w=200" alt="Album">
+        <img src="https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=200" alt="Album">
+      </div>
+    </div>
+  </div>
+
+  <footer id="footer">© 2025 TuneHub. All Rights Reserved.</footer>
+
+  <script>
+    const player = document.getElementById('player');
+    const footer = document.getElementById('footer');
+
+    window.addEventListener('scroll', () => {
+      const footerTop = footer.getBoundingClientRect().top;
+      const windowHeight = window.innerHeight;
+
+      if (footerTop <= windowHeight) {
+        const overlap = windowHeight - footerTop;
+        player.style.bottom = overlap + 'px';
+      } else {
+        player.style.bottom = '0';
+      }
+    });
+  </script>
+</body>
+</html>
