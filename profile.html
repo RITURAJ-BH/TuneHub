@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TuneHub Profile Page</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+    --accentColor: #ffcc00;
+    --textLight: #fff;
+    --textDark: #222;
+}
+
+/* RESET */
+* {
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+/* BODY */
+body {
+    background: linear-gradient(135deg, #f0f0f5, #e2e2e8);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 40px 0;
+    color: var(--textDark);
+    position: relative;
+    overflow-x: hidden;
+}
+
+/* BACKGROUND DOODLES */
+.background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -2;
+}
+.doodle {
+    position: absolute;
+    opacity: 0.6;
+    border-radius: 20px;
+    animation: float 12s ease-in-out infinite alternate;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+}
+.doodle1 { top: 40px; left: 30px; width:120px; height:120px;}
+.doodle2 { top: 200px; right: 50px; width:140px; height:140px;}
+.doodle3 { bottom: 150px; left: 80px; width:100px; height:100px;}
+.doodle4 { bottom: 100px; right: 100px; width:130px; height:130px;}
+
+@keyframes float {
+    0% { transform: translateY(0px) rotate(0deg); }
+    50% { transform: translateY(-25px) rotate(15deg); }
+    100% { transform: translateY(0px) rotate(0deg); }
+}
+
+/* PROFILE CONTAINER */
+.profileContainer {
+    background: rgba(255,255,255,0.15);
+    backdrop-filter: blur(15px);
+    border-radius: 25px;
+    width: 90%;
+    max-width: 450px;
+    padding: 30px;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.25);
+    text-align: center;
+    position: relative;
+}
+
+/* PROFILE IMAGE */
+.profilePicture {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    margin: 0 auto 15px auto;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+.profilePicture:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+}
+.profilePicture img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* USER INFO */
+.userName {
+    font-size: 1.8rem;
+    font-weight: 700;
+    margin-bottom: 5px;
+    color: var(--textDark);
+}
+.userEmail {
+    font-size: 0.95rem;
+    color: #555;
+    margin-bottom: 20px;
+}
+
+/* STATS */
+.statsSection {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 25px;
+}
+.statItem {
+    text-align: center;
+}
+.statItem span:first-child {
+    display: block;
+    font-weight: 700;
+    font-size: 1.2rem;
+    color: var(--accentColor);
+}
+.statItem span:last-child {
+    font-size: 0.85rem;
+    color: #222;
+}
+
+/* SECTION HEADERS */
+.sectionHeader {
+    font-weight: 600;
+    font-size: 1.2rem;
+    text-align: left;
+    margin: 20px 0 10px 0;
+    color: #222;
+}
+
+/* SONG LIST AND PLAYLISTS */
+.songList, .playlistList {
+    list-style: none;
+    padding: 0;
+}
+.songItem, .playlistItem {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(255,255,255,0.3);
+    padding: 12px 15px;
+    border-radius: 12px;
+    margin-bottom: 10px;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+.songItem:hover, .playlistItem:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.25);
+}
+.songInfo {
+    display: flex;
+    align-items: center;
+}
+.albumArt, .playlistCover {
+    width: 50px;
+    height: 50px;
+    border-radius: 10px;
+    margin-right: 12px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+.albumArt img, .playlistCover img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+.songTitle, .playlistTitle {
+    font-weight: 500;
+    color: #222;
+}
+.songArtist, .playlistCount {
+    font-size: 0.85rem;
+    color: #555;
+}
+.playButton {
+    background-color: var(--accentColor);
+    border: none;
+    color: #222;
+    border-radius: 50%;
+    width: 36px;
+    height: 36px;
+    cursor: pointer;
+    font-weight: 700;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+.playButton:hover {
+    transform: scale(1.1);
+    box-shadow: 0 3px 10px rgba(0,0,0,0.3);
+}
+
+/* TIP SECTION */
+.musicTip {
+    margin-top: 25px;
+    padding: 15px;
+    background: rgba(255,255,255,0.25);
+    border-radius: 15px;
+    color: #222;
+    font-style: italic;
+}
+
+/* RESPONSIVE */
+@media (max-width:500px) {
+    .statsSection {
+        flex-direction: column;
+        gap: 10px;
+    }
+    .profileContainer {
+        padding: 20px;
+    }
+    .profilePicture {
+        width: 100px;
+        height: 100px;
+    }
+}
+</style>
+</head>
+<body>
+
+<!-- BACKGROUND DOODLES -->
+<div class="background">
+    <img src="https://cdn-icons-png.flaticon.com/512/727/727245.png" class="doodle doodle1">
+    <img src="https://cdn-icons-png.flaticon.com/512/2997/2997071.png" class="doodle doodle2">
+    <img src="https://cdn-icons-png.flaticon.com/512/727/727218.png" class="doodle doodle3">
+    <img src="https://cdn-icons-png.flaticon.com/512/727/727240.png" class="doodle doodle4">
+</div>
+
+<div class="profileContainer">
+
+    <!-- PROFILE IMAGE -->
+    <div class="profilePicture" onclick="changeProfileImage()">
+        <img id="profileImage" src="https://i.pravatar.cc/120" alt="Profile Picture">
+    </div>
+
+    <!-- USER NAME AND EMAIL -->
+    <div class="userName">John Doe</div>
+    <div class="userEmail">john.doe@example.com</div>
+
+    <!-- STATS -->
+    <div class="statsSection">
+        <div class="statItem">
+            <span>24</span>
+            <span>Playlists</span>
+        </div>
+        <div class="statItem">
+            <span>320</span>
+            <span>Followers</span>
+        </div>
+        <div class="statItem">
+            <span>150</span>
+            <span>Songs</span>
+        </div>
+    </div>
+
+    <!-- SONGS -->
+    <h2 class="sectionHeader">My Offline Songs</h2>
+    <ul class="songList">
+        <li class="songItem">
+            <div class="songInfo">
+                <div class="albumArt">
+                    <img src="https://images.unsplash.com/photo-1693165025458-1d8d7c9c0b77?auto=format&fit=crop&w=50&h=50" alt="Album Art">
+                </div>
+                <div>
+                    <span class="songTitle">Song One</span>
+                    <span class="songArtist">Artist A</span>
+                </div>
+            </div>
+            <button class="playButton">▶</button>
+        </li>
+        <li class="songItem">
+            <div class="songInfo">
+                <div class="albumArt">
+                    <img src="https://images.unsplash.com/photo-1693165025458-1d8d7c9c0b77?auto=format&fit=crop&w=50&h=50" alt="Album Art">
+                </div>
+                <div>
+                    <span class="songTitle">Song Two</span>
+                    <span class="songArtist">Artist B</span>
+                </div>
+            </div>
+            <button class="playButton">▶</button>
+        </li>
+        <li class="songItem">
+            <div class="songInfo">
+                <div class="albumArt">
+                    <img src="https://images.unsplash.com/photo-1693165025458-1d8d7c9c0b77?auto=format&fit=crop&w=50&h=50" alt="Album Art">
+                </div>
+                <div>
+                    <span class="songTitle">Song Three</span>
+                    <span class="songArtist">Artist C</span>
+                </div>
+            </div>
+            <button class="playButton">▶</button>
+        </li>
+    </ul>
+
+    <!-- PLAYLISTS -->
+    <h2 class="sectionHeader">Your Playlists</h2>
+    <div class="playlistList">
+        <div class="playlistItem">
+            <div class="playlistCover">
+                <img src="https://images.unsplash.com/photo-1693165035423-6e2f3d0a6d88?auto=format&fit=crop&w=50&h=50" alt="Playlist Cover">
+            </div>
+            <div>
+                <span class="playlistTitle">Workout Mix</span>
+                <span class="playlistCount">15 songs</span>
+            </div>
+        </div>
+        <div class="playlistItem">
+            <div class="playlistCover">
+                <img src="https://images.unsplash.com/photo-1693165035423-6e2f3d0a6d88?auto=format&fit=crop&w=50&h=50" alt="Playlist Cover">
+            </div>
+            <div>
+                <span class="playlistTitle">Chill Vibes</span>
+                <span class="playlistCount">8 songs</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- TIP SECTION -->
+    <div class="musicTip">🎵 Tip: Listening to music while working out increases motivation by 20%!</div>
+
+</div>
+
+<script>
+function changeProfileImage() {
+    var newImage = prompt("Enter new profile image URL");
+    if(newImage != null && newImage != "") {
+        document.getElementById("profileImage").src = newImage;
+    }
+}
+</script>
+
+</body>
+</html>

@@ -20,13 +20,17 @@
   <nav class="navbar">
     <div class="logo">🎵 TuneHub</div>
     <ul class="nav-links">
-      <li><a href="#">Profile</a></li>
-      <li><a href="#">Login</a></li>
-      <li><a href="#">Sign Up</a></li>
+      <li><a href="profile.html">Profile</a></li>
+      <li><a href="login.html">Login</a></li>
       <li><a href="#">Support</a></li>
       <li><a href="#">Premium</a></li>
       <li><a href="#">Downloads</a></li>
     </ul>
+    <div class="hamburger">
+      <div></div>
+      <div></div>
+      <div></div>
+    </div>
   </nav>
 
   <div class="main-wrapper">
@@ -61,7 +65,8 @@
 
       <!-- Fancy Upload Section -->
       <div class="fancy-upload">
-        <input type="file" accept="audio/*">
+        <input type="file" id="music-upload" accept="audio/*">
+        <label for="music-upload">🎶 Choose Music File</label>
         <p>Upload your downloaded music here 🎵</p>
       </div>
 
@@ -123,20 +128,61 @@
   <footer id="footer">© 2025 TuneHub. All Rights Reserved.</footer>
 
   <script>
+    // Hamburger menu
+    const hamburger = document.querySelector('.hamburger');
+    const navLinks = document.querySelector('.nav-links');
+    hamburger.addEventListener('click', () => {
+      navLinks.classList.toggle('active');
+      hamburger.classList.toggle('toggle');
+    });
+
+    // Player above footer
     const player = document.getElementById('player');
     const footer = document.getElementById('footer');
-
     window.addEventListener('scroll', () => {
       const footerTop = footer.getBoundingClientRect().top;
       const windowHeight = window.innerHeight;
-
       if (footerTop <= windowHeight) {
         const overlap = windowHeight - footerTop;
         player.style.bottom = overlap + 'px';
       } else {
-        player.style.bottom = '0';
+        player.style.bottom = '15px';
       }
     });
+
+    // Draggable Player
+    let offsetX, offsetY, isDragging = false;
+    player.addEventListener("mousedown", startDrag);
+    player.addEventListener("touchstart", startDrag);
+
+    function startDrag(e) {
+      isDragging = true;
+      offsetX = (e.clientX || e.touches[0].clientX) - player.offsetLeft;
+      offsetY = (e.clientY || e.touches[0].clientY) - player.offsetTop;
+      document.addEventListener("mousemove", drag);
+      document.addEventListener("touchmove", drag);
+      document.addEventListener("mouseup", stopDrag);
+      document.addEventListener("touchend", stopDrag);
+    }
+
+    function drag(e) {
+      if (!isDragging) return;
+      let x = (e.clientX || e.touches[0].clientX) - offsetX;
+      let y = (e.clientY || e.touches[0].clientY) - offsetY;
+      player.style.left = x + "px";
+      player.style.top = y + "px";
+      player.style.bottom = "auto";
+      player.style.transform = "none";
+    }
+
+    function stopDrag() {
+      isDragging = false;
+      document.removeEventListener("mousemove", drag);
+      document.removeEventListener("touchmove", drag);
+      document.removeEventListener("mouseup", stopDrag);
+      document.removeEventListener("touchend", stopDrag);
+    }
   </script>
+
 </body>
 </html>
